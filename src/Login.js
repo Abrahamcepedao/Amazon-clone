@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import firebase from "firebase";
 import "./Login.css";
-import { Link, useHistory } from '@material-ui/core';
+import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
 import { useStateValue } from './StateProvider';
 
@@ -9,7 +9,7 @@ function Login() {
     const [{user}, dispatch] = useStateValue();
     const history = useHistory();
     const [email, setEmail] = useState('');
-    const [passowrd, setPassword] = useState("");
+    const [password, setPassword] = useState("");
 
     const login = e =>{
         e.preventDefault();
@@ -49,7 +49,7 @@ function Login() {
             <h5>Password</h5>
             <input
               type="password"
-              value={passowrd}
+              value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
             <button onClick={login} type="submit">
