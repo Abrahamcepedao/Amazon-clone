@@ -7,21 +7,27 @@ import Home from "./Home";
 import Login from './Login';
 import { useStateValue } from './StateProvider';
 import { auth } from "./firebase";
+import { Unsubscribe } from '@material-ui/icons';
 
 function App() {
   const [{user}, dispatch] = useStateValue();
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
+   const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if(authUser){
         dispatch({
           type: "SET_USER",
           user: authUser
         })
       } else{
-
+        dispatch({
+          type: "SET_USER",
+          user: null
+        })
       }
-    })
+    });
+    return () => 
+      unsubscribe();
   }, []);
 
   return (
