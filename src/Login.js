@@ -15,6 +15,7 @@ function Login() {
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password)
         .then((auth) => {
+            console.log(auth)
             history.push("/");
         })
         .catch(e => alert(e.message))

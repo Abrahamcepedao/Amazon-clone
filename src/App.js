@@ -5,9 +5,15 @@ import Checkout from './Checkout';
 import Header from './Header';
 import Home from "./Home";
 import Login from './Login';
+import Payment from './Payment';
+import Orders from './Orders';
 import { useStateValue } from './StateProvider';
 import { auth } from "./firebase";
 import { Unsubscribe } from '@material-ui/icons';
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+
+const promise = loadStripe("pk_test_51IssDVGiAVe4jN7IlgZSsdhT22RtoTItZ10hyq3yjiPe8zMcKy8eWFQse4N9Rr48WitRpojjbh0UWa7022hiuEOo0042buZgxh");
 
 function App() {
   const [{user}, dispatch] = useStateValue();
@@ -37,6 +43,16 @@ function App() {
           <Route path="/checkout">
             <Header />
             <Checkout/>
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders/>
+          </Route>
+          <Route path="/payment">
+            <Header />
+            <Elements stripe={promise}>
+              <Payment/>
+            </Elements>
           </Route>
           <Route path="/login">
             <Login/>
