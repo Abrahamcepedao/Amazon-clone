@@ -1,8 +1,10 @@
 import React from 'react'
-import "./Orders.css"
+import "./Order.css"
 import moment from "moment"
+import CheckoutProduct from './CheckoutProduct';
+import CurrencyFormat from 'react-currency-format';
 
-export default function Order() {
+export default function Order({order}) {
     return (
         <div className="order">
             <h2>Order</h2>
@@ -10,7 +12,26 @@ export default function Order() {
             <p className="order__id">
                 <small>{order.id}</small>
             </p>
-            {order.data.basket?map}
+            {order.data.basket?.map((item, i) => (
+                <CheckoutProduct
+                    id={item.id}
+                    title={item.title}
+                    price={item.price}
+                    image={item.image}
+                    rating={item.rating}
+                    hidden
+                />
+            ))}
+            <CurrencyFormat
+                renderText={(value) => (
+                    <h3 className="order__total">Order Total: {value}</h3>
+                )}
+                value={order.data.amount / 100}
+                decimalScale={2}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"$"}
+            />
         </div>
     )
 }
